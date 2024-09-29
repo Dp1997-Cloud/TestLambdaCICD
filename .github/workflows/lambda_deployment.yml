@@ -17,13 +17,16 @@ jobs:
         run: |
           pip install --target ./package pandas
 
+      # Add the lambda function code to the package
+      - name: Add Lambda function code
+        run: |
+          cp lambda_function.py ./package/
+
       # Create the deployment package
       - name: Create deployment package
         run: |
           cd package
-          zip -r ../code.zip .
-          cd ..
-          zip -g code.zip lambda_function.py  # Add your lambda function code
+          zip -r ../code.zip .  # Ensure we zip all the contents inside the package directory
 
       # AWS CLI v2 - Update the Lambda function with the new deployment package
       - name: AWS CLI v2
