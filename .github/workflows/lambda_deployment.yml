@@ -9,11 +9,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step to check out the repository
       - uses: actions/checkout@v2
-      - name: Install zip tool
-        uses: montudor/action-zip@v1
-      - name: Create Zip file for Lambda function
-        run: zip -r code.zip .
+
+      # Install dependencies, including pandas
+      - name: Install dependencies (pandas)
+        run: |
+          pip install --target ./package pandas
+
+      # Create the deployment package
+      - name: Create deployment package
+        run: |
+          cd package
+          zip -r ../code.zip .
+          cd ..
+          zip -g code.zip lambda_function.py  # Add your lambda function code
+
+      # AWS CLI v2 - Update the Lambda function with the new deployment package
       - name: AWS CLI v2
         uses: imehedi/actions-awscli-v2@latest
         with:
