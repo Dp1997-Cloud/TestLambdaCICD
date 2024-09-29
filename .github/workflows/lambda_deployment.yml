@@ -20,7 +20,7 @@ jobs:
       # Add the lambda function code to the package (update the path if needed)
       - name: Add Lambda function code
         run: |
-          cp src/lambda_function.py ./package/  # Update this path if lambda_function.py is in a different directory
+          cp Src/lambda_function.py ./package/  # Update this path if lambda_function.py is in a different directory
 
       # Create the deployment package
       - name: Create deployment package
