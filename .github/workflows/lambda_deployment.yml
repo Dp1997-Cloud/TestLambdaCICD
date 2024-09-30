@@ -12,11 +12,6 @@ jobs:
       # Step to check out the repository
       - uses: actions/checkout@v2
 
-      # Install dependencies, including pandas
-      - name: Install dependencies (pandas)
-        run: |
-          pip install --target ./package pandas
-
       # Add the lambda function code to the package (update the path if needed)
       - name: Add Lambda function code
         run: |
