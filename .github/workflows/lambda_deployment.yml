@@ -1,4 +1,4 @@
-name: Deploy Lambda Function
+Deploy Lambda Function
 
 on:
   push:
@@ -9,21 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step to check out the repository
       - uses: actions/checkout@v2
-
-      # Add the lambda function code to the package (update the path if needed)
-      - name: Add Lambda function code
-        run: |
-          cp Src/lambda_function.py ./package/  # Update this path if lambda_function.py is in a different directory
-
-      # Create the deployment package
-      - name: Create deployment package
-        run: |
-          cd package
-          zip -r ../code.zip .  # Zip all contents inside the package directory
-
-      # AWS CLI v2 - Update the Lambda function with the new deployment package
+      - name: Install zip tool
+        uses: montudor/action-zip@v1
+      - name: Create Zip file for Lambda function
+        run: zip -r code.zip .
       - name: AWS CLI v2
         uses: imehedi/actions-awscli-v2@latest
         with:
